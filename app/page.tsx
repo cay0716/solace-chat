@@ -1,65 +1,98 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+import { getMockReply } from "@/app/chat/mock";
+import FadeText from "@/app/components/FadeText";
+import Typewriter from "@/app/components/Typewriter";
+
+type Message = {
+  role: "user" | "ai";
+  text: string;
+}
 
 export default function Home() {
+  const [input, setInput] = useState("");
+  const [chat, setChat] = useState<Message[]>([]);
+  const [hasTyped, setHasTyped] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const sendMessage = async () => {
+    const userMsg = input;
+
+    setChat((prev) => [...prev, {role: "user", text: userMsg}]);
+    setInput("");
+
+    setLoading(true);
+
+    // mock 사용
+    // setTimeout(() => {
+    //   const reply = getMockReply();
+    //   setLoading(false)
+
+    //   setLoading(false)
+    //   // const res = await fetch("/api/chat", ...)
+    //   setChat((prev) => [...prev, {role: "ai", text: reply}]);
+    // }, 500);
+
+    // API 호출
+    try {
+      const res = await fetch("/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message: userMsg }),
+      });
+
+      const data = await res.json();
+      setLoading(false);
+      setChat((prev) => [...prev, { role: "ai", text: data.reply }]);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="py-16 px-[8%] md:px-[20%] w-full">
+      <FadeText stopped={hasTyped} />
+
+      <div>
+        {chat.map((msg, i) => (
+          <p
+            key={i}
+            className={
+              msg.role === "user"
+                ? "opacity-40 text-sm text-right font-light pt-2"
+                : "opacity-90 text-base text-left font-light border-b border-white/10 pb-2"
+            }
+          >
+            {msg.role === "ai" ? (
+              <Typewriter text={msg.text} />
+            ) : (
+              msg.text
+            )}
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+        ))}
+
+        {loading && (
+          <div className="loading-dot"></div>
+        )}
+      </div>
+
+      <div className="w-full flex justify-center items-center gap-2 pt-5">
+        <input
+          value={input}
+          onChange={(e) => {
+            setInput(e.target.value);
+          
+            if (!hasTyped && e.target.value.length > 0) {
+              setHasTyped(true);
+            }
+          }}
+          className="border-b opacity-60"
+        />
+        <button onClick={sendMessage} className="p-2 opacity-50">전송</button>
+      </div>
     </div>
   );
 }
