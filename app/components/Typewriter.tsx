@@ -16,7 +16,7 @@ export default function Typewriter({ text }: { text: string }) {
         return;
       }
 
-      setDisplayed(text.slice(0, i)); // 🔥 핵심
+      setDisplayed(text.slice(0, i)); 
     }, 30);
 
     return () => clearInterval(interval);

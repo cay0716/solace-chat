@@ -2,7 +2,9 @@
 
 :root {
   --background: #171717;
-  --foreground: #ffffff;
+  --foreground: #5a54ff;
+  --main-color: #5a54ff;
+  --sub-color: #71c6ff;
 }
 
 @font-face {
@@ -54,4 +56,13 @@ body {
     opacity: 0;
     transform: scale(0.8);
   }
+}
+
+* {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+*::-webkit-scrollbar {
+  display: none !important;
 }
