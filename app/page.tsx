@@ -56,7 +56,7 @@ export default function Home() {
 
       {/* [스크롤 2] */}
       <section className="h-screen snap-start flex flex-col justify-center items-center p-10 gap-8">
-        <p className="text-xl md:text-[4vw] text-center leading-relaxed font-semibold text-[var(--sub-color)]">
+        <p className="text-4xl md:text-[6vw] text-center leading-relaxed font-semibold text-[var(--sub-color)]">
           날개가 있다고 해서 천사입니까?
           무엇도 될 수 있는 이 모호한 뼈대 위에서
           당신은 굳이 무엇을 읽어내려 합니까?
@@ -69,7 +69,7 @@ export default function Home() {
 
       {/* [스크롤 3] */}
       <section className="h-screen snap-start flex justify-center items-center p-10">
-        <p className="text-xl md:text-[4vw] md:text-3xl text-center leading-relaxed text-[var(--main-color)] font-semibold">
+        <p className="text-4xl md:text-[4vw] md:text-3xl text-center leading-relaxed text-[var(--main-color)] font-light opacity-50">
           모호함을 <br /> 견디지 못한 이름표가 <br /> 존재를 지웁니다.
         </p>
       </section>
