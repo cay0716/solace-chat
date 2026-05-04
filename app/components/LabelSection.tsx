@@ -11,8 +11,6 @@ export default function LabelSection() {
     "착한", "나쁜", "성실한", "게으른",
     "친절한", "차가운", "다정한", "무심한",
     "밝은", "어두운", "긍정적인", "부정적인",
-    "예민한", "무던한", "까다로운", "단순한",
-    "솔직한", "위선적인", "진실한", "가식적인",
     "책임감 있는", "무책임한", "믿을 수 있는", "의심스러운",
     "똑똑한", "어리석은", "현명한", "무지한",
     "성공한", "실패한", "잘난", "못난",
@@ -33,7 +31,7 @@ export default function LabelSection() {
 
   return (
     <section className="h-screen snap-start flex flex-col justify-center items-center p-10 overflow-hidden bg-black">
-      <p className="text-center max-w-2xl leading-loose font-light text-[var(--main-color)] mb-8 transition-opacity duration-1000">
+      <p className="text-center max-w-2xl leading-loose font-semibold text-[var(--main-color)] mb-8 transition-opacity duration-1000">
         타인을 정의할 때 썼던 편리한 단어들 ㅡ
       </p>
 
@@ -48,7 +46,7 @@ export default function LabelSection() {
               delay: i * 0.02
             }}
             viewport={{ once: true }}
-            className="text-gray-500 md:text-base font-light"
+            className="text-gray-300 text-[1rem] md:text-[1.5rem]"
           >
             {label}
           </motion.span>
@@ -58,7 +56,7 @@ export default function LabelSection() {
       <motion.p 
         initial={{ opacity: 0}}
         whileInView={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 1 }}
+        transition={{ delay: 1 }}
         viewport={{ once: true }}
         className="mt-12 text-center font-light text-[var(--main-color)] font-semibold"
       >

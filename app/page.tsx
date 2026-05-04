@@ -70,7 +70,7 @@ export default function Home() {
       {/* [스크롤 3] */}
       <section className="h-screen snap-start flex justify-center items-center p-10">
         <p className="text-xl md:text-[4vw] md:text-3xl text-center leading-relaxed text-[var(--main-color)] font-semibold">
-          정의하는 순간, 존재의 알맹이는 지워집니다.
+          모호함을 <br /> 견디지 못한 이름표가 <br /> 존재를 지웁니다.
         </p>
       </section>
 
