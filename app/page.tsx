@@ -69,7 +69,7 @@ export default function Home() {
 
       {/* [스크롤 3] */}
       <section className="h-screen snap-start flex justify-center items-center p-10">
-        <p className="text-4xl md:text-[4vw] md:text-3xl text-center leading-relaxed text-[var(--main-color)] font-light opacity-50">
+        <p className="text-4xl md:text-[4vw] md:text-3xl text-center leading-relaxed text-[var(--main-color)] font-light opacity-20">
           모호함을 <br /> 견디지 못한 이름표가 <br /> 존재를 지웁니다.
         </p>
       </section>
